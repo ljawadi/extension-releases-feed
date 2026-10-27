@@ -7,7 +7,7 @@
       "downloads": {
         "windows_exe": {
           "url": "https://github.com/ljawadi/extension-releases-feed/releases/download/v1.0.4/AlvaroInstaller.exe",
-          "checksum": "sha256:268baa0db9e0c579d912bd4164a5a5a2251bc46d69dfaee175f18baa5e042323",
+          "checksum": "sha256:93c516cbe611315262248b4b6eff0d0c476aed907ea3238bbc1369d82eb3845c",
           "size": "12.1 MB"
         },
         "python_script": {
