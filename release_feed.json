@@ -6,24 +6,20 @@
       "channel": "stable",
       "downloads": {
         "windows_exe": {
-          "url": "https://thedoomsdayproject.ignorelist.com:3000/ljawadi/alvaro-releases/raw/branch/master/releases/AlvaroInstaller-1.0.0.exe",
-          "checksum": "sha256:placeholder",
-          "size": "45MB"
-        },
-        "mac_arm64": {
-          "url": "https://thedoomsdayproject.ignorelist.com:3000/ljawadi/alvaro-releases/raw/branch/master/releases/AlvaroInstaller-1.0.0-arm64.dmg",
-          "checksum": "sha256:placeholder",
-          "size": "52MB"
-        },
-        "mac_intel": {
-          "url": "https://thedoomsdayproject.ignorelist.com:3000/ljawadi/alvaro-releases/raw/branch/master/releases/AlvaroInstaller-1.0.0-intel.dmg",
-          "checksum": "sha256:placeholder",
-          "size": "52MB"
+          "url": "https://github.com/ljawadi/extension-releases-feed/releases/download/v1.0.0/AlvaroInstaller.exe",
+          "checksum": "sha256:627868decab803d669bfb010340eac45c547ab67586ce12a926a51f559ab4cb7",
+          "size": "12.7 MB"
         },
         "python_script": {
-          "url": "https://thedoomsdayproject.ignorelist.com:3000/ljawadi/alvaro-releases/raw/branch/master/releases/installer-1.0.0.py",
-          "checksum": "sha256:b7fddfe2d99fc0b6c95aa05128d57d71e319a83af6c184b063c59ad4acd5ebf0",
-          "size": "12KB"
+          "url": "https://github.com/ljawadi/extension-releases-feed/releases/download/v1.0.0/installer-1.0.0.py",
+          "checksum": "sha256:ccca26e9f6ffa6b4111752a40829d0eb7ceaa7bb1fffe0beb515b1d683d7083b",
+          "size": "20 KB"
+        },
+        "mac_arm64": {
+          "status": "not available - coming soon"
+        },
+        "mac_intel": {
+          "status": "not available - coming soon"
         }
       },
       "changelog": [
@@ -42,10 +38,14 @@
   "currentVersion": "1.0.0",
   "updateAvailable": false,
   "metadata": {
-    "lastUpdated": "2026-10-27T13:30:00Z",
+    "lastUpdated": "2026-10-27T14:02:18Z",
     "repository": "https://thedoomsdayproject.ignorelist.com:3000/ljawadi/alvaro-releases",
     "feedUrl": "https://raw.githubusercontent.com/ljawadi/extension-releases-feed/main/release_feed.json",
-    "supportedPlatforms": ["Windows", "macOS", "Linux"],
+    "supportedPlatforms": [
+      "Windows",
+      "macOS",
+      "Linux"
+    ],
     "checksumAlgorithm": "sha256"
   }
 }
