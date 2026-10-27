@@ -1,6 +1,36 @@
 {
   "releases": [
     {
+      "version": "1.0.4",
+      "releaseDate": "2026-10-27",
+      "channel": "stable",
+      "downloads": {
+        "windows_exe": {
+          "url": "https://github.com/ljawadi/extension-releases-feed/releases/download/v1.0.4/AlvaroInstaller.exe",
+          "checksum": "sha256:268baa0db9e0c579d912bd4164a5a5a2251bc46d69dfaee175f18baa5e042323",
+          "size": "12.1 MB"
+        },
+        "python_script": {
+          "url": "https://github.com/ljawadi/extension-releases-feed/releases/download/v1.0.4/installer-1.0.4.py",
+          "checksum": "sha256:2854e39dda89eeb26dbf706f14565c39b50a677dbf4893a3534d872d0cc5fa40",
+          "size": "20 KB"
+        },
+        "mac_arm64": {
+          "status": "not available - coming soon"
+        },
+        "mac_intel": {
+          "status": "not available - coming soon"
+        }
+      },
+      "changelog": [
+        "ADD: Brave Browser Support",
+        "FIX: Edge path corrected"
+      ],
+      "minInstallerVersion": null,
+      "deprecated": false,
+      "notes": "Feature-Release. Brave Browser-Support (Windows, macOS, Linux) und korrigierter Edge-Pfad (x86->64-bit). Erfordert Python 3.8+ und admin-Rechte."
+    },
+    {
       "version": "1.0.3",
       "releaseDate": "2026-10-27",
       "channel": "stable",
@@ -89,7 +119,7 @@
         "[FIX] Update-Checker findet Feed jetzt auf GitHub"
       ],
       "minInstallerVersion": null,
-      "deprecated": false,
+      "deprecated": true,
       "notes": "Security-Release. Erfordert Python 3.8+ und admin-Rechte."
     },
     {
@@ -127,10 +157,10 @@
       "notes": "Erste stabile Version. Erfordert Python 3.8+ und admin-Rechte."
     }
   ],
-  "currentVersion": "1.0.3",
+  "currentVersion": "1.0.4",
   "updateAvailable": true,
   "metadata": {
-    "lastUpdated": "2026-10-27T16:30:00Z",
+    "lastUpdated": "2026-10-27T16:46:00Z",
     "repository": "https://github.com/ljawadi/extension-releases-feed",
     "feedUrl": "https://raw.githubusercontent.com/ljawadi/extension-releases-feed/main/release_feed.json",
     "supportedPlatforms": [
