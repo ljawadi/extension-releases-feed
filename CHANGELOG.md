@@ -4,6 +4,17 @@ Alle Änderungen an diesem Projekt werden hier dokumentiert.
 
 ---
 
+## [1.0.2] – 2026-10-27
+
+### 🐛 Bugfixes
+- FIX: Zertifikat-Dateien ins Bundle (`datas=[('certs','certs')]`) – One-File-Build
+  fand `certs/cert-typo.pem` zuvor nicht und brach mit „Zertifikat nicht gefunden" ab
+- FIX: `proxy_server.py` ins Bundle aufgenommen (wird als Subprozess gestartet)
+- FIX: Zertifikat- und Proxy-Lookup nutzen jetzt `_BASE_DIR` (`sys._MEIPASS`),
+  statt `__file__` – deterministisch im eingefrorenen One-File-Modus
+
+---
+
 ## [1.0.0] – 2026-10-27
 
 ### ✨ Features

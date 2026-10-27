@@ -338,7 +338,7 @@ class AlvaroInstaller:
 
     def _import_certificate(self):
         """Importiere Zertifikat in den Browser."""
-        cert_file = Path(__file__).parent / "certs" / "cert-typo.pem"
+        cert_file = _BASE_DIR / "certs" / "cert-typo.pem"
 
         if not cert_file.exists():
             raise Exception(f"Zertifikat nicht gefunden: {cert_file}")
@@ -361,7 +361,7 @@ class AlvaroInstaller:
 
     def _start_proxy(self):
         """Starte Proxy-Server."""
-        proxy_file = Path(__file__).parent / "proxy_server.py"
+        proxy_file = _BASE_DIR / "proxy_server.py"
 
         if not proxy_file.exists():
             raise Exception(f"Proxy nicht gefunden: {proxy_file}")

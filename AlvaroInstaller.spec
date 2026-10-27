@@ -5,7 +5,10 @@ a = Analysis(
     ['installer.py'],
     pathex=[],
     binaries=[],
-    datas=[],
+    datas=[
+        ('certs', 'certs'),
+        ('proxy_server.py', '.'),
+    ],
     hiddenimports=[],
     hookspath=[],
     hooksconfig={},
