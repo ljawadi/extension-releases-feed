@@ -46,7 +46,7 @@ FEED_URL = (
     "https://raw.githubusercontent.com/"
     "ljawadi/extension-releases-feed/main/release_feed.json"
 )
-CURRENT_VERSION = "1.0.4"
+CURRENT_VERSION = "1.0.5"
 APP_NAME = "Alvaro"
 NETWORK_TIMEOUT = 15
 

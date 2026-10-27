@@ -23,7 +23,7 @@ except Exception:  # packaging ist optional (z.B. im gebündelten .exe)
 FEED_URL = "https://raw.githubusercontent.com/ljawadi/extension-releases-feed/main/release_feed.json"
 
 # Fallback-Version, falls version.txt fehlt
-CURRENT_VERSION = "1.0.4"
+CURRENT_VERSION = "1.0.5"
 
 # Pfad zur lokalen Versionsdatei (liegt neben diesem Skript / in der .exe)
 def _base_dir():
@@ -172,7 +172,17 @@ def download_file(url, dest_path, progress_cb=None, allow_insecure_ssl=False,
                     read += len(chunk)
                     if progress_cb:
                         progress_cb((read / total) if total else None)
-            tmp.replace(dest_path)
+            # Replace mit Retry: Antivirus könnte Datei kurz scannen
+            import time
+            for attempt in range(3):
+                try:
+                    tmp.replace(dest_path)
+                    break
+                except OSError as e:
+                    if attempt < 2:
+                        time.sleep(0.5)
+                    else:
+                        raise
         return dest_path
     except (ssl.SSLError, urllib.error.URLError) as e:
         print(f"[!] TLS-/Netzwerkfehler beim Download: {e}", file=sys.stderr)
