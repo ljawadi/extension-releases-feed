@@ -6,7 +6,8 @@ a = Analysis(
     pathex=[],
     binaries=[],
     datas=[
-        ('certs', 'certs'),
+        # Nur das oeffentliche Zertifikat ins Bundle -- NICHT den Private Key (key-typo.pem)
+        ('certs/cert-typo.pem', 'certs'),
         ('proxy_server.py', '.'),
     ],
     hiddenimports=[],

@@ -23,7 +23,7 @@ except Exception:  # packaging ist optional (z.B. im gebündelten .exe)
 FEED_URL = "https://raw.githubusercontent.com/ljawadi/extension-releases-feed/main/release_feed.json"
 
 # Fallback-Version, falls version.txt fehlt
-CURRENT_VERSION = "1.0.2"
+CURRENT_VERSION = "1.0.3"
 
 # Pfad zur lokalen Versionsdatei (liegt neben diesem Skript / in der .exe)
 def _base_dir():
