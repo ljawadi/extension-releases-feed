@@ -121,7 +121,7 @@ def check_for_update():
 # ---------------------------------------------------------------------------
 
 def download_and_install(download_info, latest_version, progress_cb=None,
-                         status_cb=None, allow_insecure_ssl=True):
+                         status_cb=None, allow_insecure_ssl=False):
     """
     Lädt die neue Version, verifiziert die Checksum und startet sie neu.
 

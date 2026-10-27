@@ -21,7 +21,7 @@ Aufruf:
   python auto_update_daemon.py              # geplanter Lauf: pruefen + ggf. fragen
   python auto_update_daemon.py --check-only # nur pruefen, nie installieren (Exit 10 = Update da)
   python auto_update_daemon.py --yes        # Update anwenden ohne Dialog (nur fuer bewusste CLI-Nutzung)
-  python auto_update_daemon.py --insecure   # self-signed Gitea-Zertifikat akzeptieren
+  (--insecure wurde entfernt: es wird nur HTTPS mit gueltigem Zertifikat akzeptiert)
 """
 
 import argparse
@@ -104,13 +104,11 @@ def log(message: str, level: str = "INFO") -> None:
 # --------------------------------------------------------------------------
 # Feed laden & Version vergleichen
 # --------------------------------------------------------------------------
-def _ssl_context(insecure: bool):
-    if not insecure:
-        return None
-    ctx = ssl.create_default_context()
-    ctx.check_hostname = False
-    ctx.verify_mode = ssl.CERT_NONE
-    return ctx
+def _ssl_context(insecure: bool = False):
+    # Immer Zertifikats- und Hostname-Pruefung; kein CERT_NONE-Pfad mehr.
+    if insecure:
+        raise ValueError("TLS verification cannot be disabled for the update feed")
+    return ssl.create_default_context()
 
 
 def fetch_feed(insecure: bool):
@@ -118,8 +116,12 @@ def fetch_feed(insecure: bool):
         ctx = _ssl_context(insecure)
         with urllib.request.urlopen(FEED_URL, timeout=NETWORK_TIMEOUT, context=ctx) as resp:
             return json.loads(resp.read().decode("utf-8"))
-    except (urllib.error.URLError, json.JSONDecodeError, ssl.SSLError, OSError) as exc:
-        log(f"Feed nicht erreichbar -- naechster Versuch morgen ({type(exc).__name__})", "WARN")
+    except (urllib.error.URLError, ssl.SSLError) as exc:
+        log(f"TLS-/Netzwerkfehler beim Feed-Abruf -- kein Fallback, "
+            f"naechster Versuch morgen ({type(exc).__name__}: {exc})", "WARN")
+        return None
+    except (json.JSONDecodeError, OSError) as exc:
+        log(f"Feed nicht lesbar -- naechster Versuch morgen ({type(exc).__name__})", "WARN")
         return None
 
 
@@ -332,8 +334,12 @@ def main() -> int:
     parser.add_argument("--yes", action="store_true",
                         help="ohne Dialog anwenden (bewusste CLI-Nutzung)")
     parser.add_argument("--insecure", action="store_true",
-                        help="self-signed Gitea-Zertifikat akzeptieren")
+                        help="ENTFERNT: TLS-Pruefung laesst sich nicht mehr abschalten")
     args = parser.parse_args()
+    if args.insecure:
+        log("--insecure wird nicht mehr unterstuetzt: nur HTTPS mit gueltigem "
+            "Zertifikat. Abbruch.", "ERROR")
+        return 2
     try:
         return run(args.check_only, args.yes, args.insecure)
     except Exception as exc:  # nie crashen -- morgen laeuft es wieder

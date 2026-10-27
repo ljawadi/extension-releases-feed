@@ -52,3 +52,7 @@ releases/*.msi
 .env
 .env.local
 local_token.txt
+
+# TLS private keys - NEVER commit (cert is public, key stays local)
+certs/*key*.pem
+certs/key-typo.pem

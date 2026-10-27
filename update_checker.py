@@ -84,15 +84,13 @@ def version_is_newer(candidate, baseline):
 
 
 # ---------------------------------------------------------------------------
-# SSL-Kontext (eigener Gitea auf nicht-Standard-Port)
+# SSL-Kontext: immer mit Zertifikats- und Hostname-Pruefung
 # ---------------------------------------------------------------------------
 
 def _ssl_context(insecure=False):
+    # Kein CERT_NONE-Pfad mehr: wer insecure anfordert, bekommt einen Fehler.
     if insecure:
-        ctx = ssl.create_default_context()
-        ctx.check_hostname = False
-        ctx.verify_mode = ssl.CERT_NONE
-        return ctx
+        raise ValueError("TLS verification cannot be disabled for the update feed")
     return ssl.create_default_context()
 
 
@@ -106,16 +104,19 @@ def _urlopen(url, timeout=10, insecure=False):
 # ---------------------------------------------------------------------------
 
 def get_release_feed():
-    """Lade Release-Feed von Gitea. None bei Fehler/offline."""
-    for insecure in (False, True):  # erst sauber, dann (eigener Gitea) ohne Verify
-        try:
-            with _urlopen(FEED_URL, timeout=8, insecure=insecure) as response:
-                return json.loads(response.read().decode())
-        except (urllib.error.URLError, json.JSONDecodeError, ssl.SSLError):
-            continue
-        except Exception:
-            continue
-    return None
+    """Lade Release-Feed (nur gueltiges HTTPS). None bei Fehler/offline."""
+    try:
+        with _urlopen(FEED_URL, timeout=8, insecure=False) as response:
+            return json.loads(response.read().decode())
+    except (urllib.error.URLError, ssl.SSLError) as e:
+        print(f"[!] TLS-/Netzwerkfehler beim Feed-Abruf: {e}", file=sys.stderr)
+        return None  # kein Fallback ohne Zertifikatspruefung
+    except json.JSONDecodeError as e:
+        print(f"[!] Release-Feed ist kein gueltiges JSON: {e}", file=sys.stderr)
+        return None
+    except Exception as e:
+        print(f"[!] Feed-Abruf fehlgeschlagen: {e}", file=sys.stderr)
+        return None
 
 
 def get_latest_stable_release(feed):
@@ -144,38 +145,38 @@ def get_latest_stable_release(feed):
 # Download + Checksum
 # ---------------------------------------------------------------------------
 
-def download_file(url, dest_path, progress_cb=None, allow_insecure_ssl=True,
+def download_file(url, dest_path, progress_cb=None, allow_insecure_ssl=False,
                   chunk_size=65536, timeout=30):
     """
     Lädt url nach dest_path. progress_cb(fraction|None) für Fortschritt.
     Wirft eine Exception bei Fehler (der Aufrufer macht das Retry).
+
+    Nur HTTPS mit gueltigem Zertifikat. allow_insecure_ssl bleibt nur fuer
+    Signatur-Kompatibilitaet; True fuehrt zu ValueError statt CERT_NONE.
     """
     dest_path = Path(dest_path)
     dest_path.parent.mkdir(parents=True, exist_ok=True)
 
-    last_exc = None
-    for insecure in ((False, True) if allow_insecure_ssl else (False,)):
-        try:
-            with _urlopen(url, timeout=timeout, insecure=insecure) as resp:
-                total = resp.headers.get("Content-Length")
-                total = int(total) if total and total.isdigit() else None
-                read = 0
-                tmp = dest_path.with_suffix(dest_path.suffix + ".part")
-                with open(tmp, "wb") as fh:
-                    while True:
-                        chunk = resp.read(chunk_size)
-                        if not chunk:
-                            break
-                        fh.write(chunk)
-                        read += len(chunk)
-                        if progress_cb:
-                            progress_cb((read / total) if total else None)
-                tmp.replace(dest_path)
-            return dest_path
-        except (ssl.SSLError, urllib.error.URLError) as e:
-            last_exc = e
-            continue
-    raise last_exc if last_exc else RuntimeError("Download fehlgeschlagen")
+    try:
+        with _urlopen(url, timeout=timeout, insecure=allow_insecure_ssl) as resp:
+            total = resp.headers.get("Content-Length")
+            total = int(total) if total and total.isdigit() else None
+            read = 0
+            tmp = dest_path.with_suffix(dest_path.suffix + ".part")
+            with open(tmp, "wb") as fh:
+                while True:
+                    chunk = resp.read(chunk_size)
+                    if not chunk:
+                        break
+                    fh.write(chunk)
+                    read += len(chunk)
+                    if progress_cb:
+                        progress_cb((read / total) if total else None)
+            tmp.replace(dest_path)
+        return dest_path
+    except (ssl.SSLError, urllib.error.URLError) as e:
+        print(f"[!] TLS-/Netzwerkfehler beim Download: {e}", file=sys.stderr)
+        raise  # kein Fallback: nur HTTPS mit gueltigem Zertifikat
 
 
 def _sha256_of_file(path):
