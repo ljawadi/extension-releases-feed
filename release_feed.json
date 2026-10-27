@@ -1,6 +1,37 @@
 {
   "releases": [
     {
+      "version": "1.0.2",
+      "releaseDate": "2026-10-27",
+      "channel": "stable",
+      "downloads": {
+        "windows_exe": {
+          "url": "https://github.com/ljawadi/extension-releases-feed/releases/download/v1.0.2/AlvaroInstaller.exe",
+          "checksum": "sha256:c811634e75967233a21eceba8444010b46b6549f80482ff0efcf795d20214efb",
+          "size": "12.7 MB"
+        },
+        "python_script": {
+          "url": "https://github.com/ljawadi/extension-releases-feed/releases/download/v1.0.2/installer-1.0.2.py",
+          "checksum": "sha256:453aa2e3dcac957714008d6e3e2b42a86cec373736a182b97bde1de9aa173f8f",
+          "size": "20 KB"
+        },
+        "mac_arm64": {
+          "status": "not available - coming soon"
+        },
+        "mac_intel": {
+          "status": "not available - coming soon"
+        }
+      },
+      "changelog": [
+        "[FIX] Zertifikat-Dateien ins Bundle (certs/cert-typo.pem wird jetzt gefunden)",
+        "[FIX] proxy_server.py ins Bundle aufgenommen",
+        "[FIX] Lookup via _BASE_DIR (sys._MEIPASS) statt __file__ im One-File-Modus"
+      ],
+      "minInstallerVersion": null,
+      "deprecated": false,
+      "notes": "Bugfix-Release. Behebt 'Zertifikat nicht gefunden' im One-File-Installer. Erfordert Python 3.8+ und admin-Rechte."
+    },
+    {
       "version": "1.0.1",
       "releaseDate": "2026-10-27",
       "channel": "stable",
@@ -23,10 +54,10 @@
         }
       },
       "changelog": [
-        "🔒 SECURITY: CA Private Key entfernt",
-        "🔒 SECURITY: TLS-Verifikation erzwungen (kein CERT_NONE Fallback)",
-        "🔒 SECURITY: Checksum-Prüfung fail-closed",
-        "🐛 FIX: Update-Checker findet Feed jetzt auf GitHub"
+        "[SECURITY] CA Private Key entfernt",
+        "[SECURITY] TLS-Verifikation erzwungen (kein CERT_NONE Fallback)",
+        "[SECURITY] Checksum-Prüfung fail-closed",
+        "[FIX] Update-Checker findet Feed jetzt auf GitHub"
       ],
       "minInstallerVersion": null,
       "deprecated": false,
@@ -55,22 +86,22 @@
         }
       },
       "changelog": [
-        "✨ Initial release",
-        "✓ Grafischer One-Click-Installer",
-        "✓ Browser-Erkennung (Windows/Mac/Linux)",
-        "✓ Automatische hosts-Datei-Konfiguration",
-        "✓ Zertifikat-Import",
-        "✓ Proxy-Integration"
+        "[NEW] Initial release",
+        "[+] Grafischer One-Click-Installer",
+        "[+] Browser-Erkennung (Windows/Mac/Linux)",
+        "[+] Automatische hosts-Datei-Konfiguration",
+        "[+] Zertifikat-Import",
+        "[+] Proxy-Integration"
       ],
       "minInstallerVersion": null,
       "deprecated": true,
       "notes": "Erste stabile Version. Erfordert Python 3.8+ und admin-Rechte."
     }
   ],
-  "currentVersion": "1.0.1",
+  "currentVersion": "1.0.2",
   "updateAvailable": true,
   "metadata": {
-    "lastUpdated": "2026-10-27T00:00:00Z",
+    "lastUpdated": "2026-10-27T15:52:00Z",
     "repository": "https://github.com/ljawadi/extension-releases-feed",
     "feedUrl": "https://raw.githubusercontent.com/ljawadi/extension-releases-feed/main/release_feed.json",
     "supportedPlatforms": [
