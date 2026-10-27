@@ -235,7 +235,8 @@ class AlvaroInstaller:
         if self.system == "Windows":
             paths = {
                 "Chrome": r"C:\Program Files\Google\Chrome\Application\chrome.exe",
-                "Edge": r"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe",
+                "Edge": r"C:\Program Files\Microsoft\Edge\Application\msedge.exe",
+                "Brave": r"C:\Program Files\BraveSoftware\Brave-Browser\Application\brave.exe",
                 "Opera": r"C:\Program Files\Opera\opera.exe",
                 "Firefox": r"C:\Program Files\Mozilla Firefox\firefox.exe",
             }
@@ -245,6 +246,7 @@ class AlvaroInstaller:
                 "Edge": "/Applications/Microsoft Edge.app/Contents/MacOS/Microsoft Edge",
                 "Firefox": "/Applications/Firefox.app/Contents/MacOS/firefox",
                 "Safari": "/Applications/Safari.app/Contents/MacOS/Safari",
+                "Brave": "/Applications/Brave Browser.app/Contents/MacOS/Brave Browser",
                 "Opera": "/Applications/Opera.app/Contents/MacOS/Opera",
             }
         else:  # Linux
@@ -252,6 +254,7 @@ class AlvaroInstaller:
                 "Chrome": "/usr/bin/google-chrome",
                 "Chromium": "/usr/bin/chromium-browser",
                 "Firefox": "/usr/bin/firefox",
+                "Brave": "/usr/bin/brave-browser",
                 "Opera": "/usr/bin/opera",
                 "Edge": "/usr/bin/microsoft-edge",
             }
@@ -392,7 +395,9 @@ class AlvaroInstaller:
             if browser == "Chrome":
                 subprocess.Popen([r"C:\Program Files\Google\Chrome\Application\chrome.exe", url])
             elif browser == "Edge":
-                subprocess.Popen([r"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe", url])
+                subprocess.Popen([r"C:\Program Files\Microsoft\Edge\Application\msedge.exe", url])
+            elif browser == "Brave":
+                subprocess.Popen([r"C:\Program Files\BraveSoftware\Brave-Browser\Application\brave.exe", url])
             elif browser == "Firefox":
                 subprocess.Popen([r"C:\Program Files\Mozilla Firefox\firefox.exe", url])
             elif browser == "Opera":
