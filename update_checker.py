@@ -187,29 +187,35 @@ def _sha256_of_file(path):
     return h.hexdigest()
 
 
+# Werte, die im Feed als "keine echte Prüfsumme" gelten. Muss mit
+# auto_update_daemon.PLACEHOLDER_CHECKSUMS übereinstimmen (Daemon läuft
+# eigenständig im Nutzer-Datenverzeichnis und kann dieses Modul nicht
+# importieren); test_checksum.py prüft die Gleichheit.
+PLACEHOLDER_CHECKSUMS = ("", "placeholder", "tbd", "none")
+
+
 def verify_checksum(file_path, expected_checksum):
     """
-    Prüft die SHA256-Checksum der Datei.
+    Prüft die SHA256-Checksum der Datei -- fail-closed (wie der Daemon).
 
     expected_checksum kann 'sha256:<hex>' oder '<hex>' sein.
-    Returns (ok: bool, detail: str).
+    Returns True, wenn die Prüfsumme stimmt.
 
-    Sonderfall: fehlt die Checksum oder ist sie ein Platzhalter, wird NICHT
-    hart abgebrochen (sonst wäre kein Install möglich), sondern ok=True mit
-    deutlichem Hinweis zurückgegeben.
+    Raises ValueError, wenn die Checksum fehlt, ein Platzhalter ist oder
+    nicht übereinstimmt. Ohne gültige Prüfsumme wird NIE installiert.
     """
     raw = (expected_checksum or "").strip()
     if raw.lower().startswith("sha256:"):
         raw = raw.split(":", 1)[1].strip()
 
+    if raw.lower() in PLACEHOLDER_CHECKSUMS:
+        raise ValueError(f"Checksum missing or placeholder. File: {file_path}")
+
     actual = _sha256_of_file(file_path)
-
-    if not raw or raw.lower() in ("placeholder", "tbd", "none"):
-        return True, f"keine Prüfsumme im Feed, berechnet {actual[:12]}…"
-
-    if actual.lower() == raw.lower():
-        return True, f"sha256 {actual[:12]}…"
-    return False, f"erwartet {raw[:12]}…, erhalten {actual[:12]}…"
+    if actual.lower() != raw.lower():
+        raise ValueError(
+            f"Checksum mismatch: expected {raw[:12]}..., got {actual[:12]}...")
+    return True
 
 
 # ---------------------------------------------------------------------------

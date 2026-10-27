@@ -230,9 +230,13 @@ def sha256(path: Path) -> str:
     return h.hexdigest()
 
 
+# Muss mit update_checker.PLACEHOLDER_CHECKSUMS übereinstimmen (test_checksum.py).
+PLACEHOLDER_CHECKSUMS = ("", "placeholder", "tbd", "none")
+
+
 def verify_checksum(path: Path, expected: str) -> bool:
     expected = (expected or "").split(":", 1)[-1].strip().lower()
-    if not expected or expected == "placeholder":
+    if expected in PLACEHOLDER_CHECKSUMS:
         log("Kein gueltiger SHA256 im Feed -- Update abgebrochen (Sicherheit)", "ERROR")
         return False
     actual = sha256(path).lower()

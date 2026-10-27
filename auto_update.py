@@ -167,11 +167,15 @@ def download_and_install(download_info, latest_version, progress_cb=None,
 
     # --- Checksum verifizieren ---
     _status("Verifiziere Checksum ...")
-    ok, detail = update_checker.verify_checksum(dest, expected_checksum)
-    if not ok:
+    # fail-closed: fehlende/Platzhalter-/falsche Checksum -> ValueError.
+    # Immer (ok, message) zurückgeben -- der GUI-Worker entpackt das Tupel,
+    # eine Exception hier ließe den modalen Fortschrittsdialog hängen.
+    try:
+        update_checker.verify_checksum(dest, expected_checksum)
+    except (ValueError, OSError) as e:
         _safe_unlink(dest)
-        return False, f"Checksum-Prüfung fehlgeschlagen: {detail}"
-    _status(f"Checksum ok ({detail}).")
+        return False, f"Download-Verifizierung fehlgeschlagen: {e}"
+    _status("Checksum ok.")
 
     # --- Neustart mit neuer Version ---
     _status("Starte neue Version ...")
