@@ -6,23 +6,23 @@
       "channel": "stable",
       "downloads": {
         "windows_exe": {
-          "url": "https://gitea.thedoomsdayproject.ignorelist.com:3000/ljawadi/alvaro-releases/raw/branch/main/releases/AlvaroInstaller-1.0.0.exe",
+          "url": "https://thedoomsdayproject.ignorelist.com:3000/ljawadi/alvaro-releases/raw/branch/master/releases/AlvaroInstaller-1.0.0.exe",
           "checksum": "sha256:placeholder",
           "size": "45MB"
         },
         "mac_arm64": {
-          "url": "https://gitea.thedoomsdayproject.ignorelist.com:3000/ljawadi/alvaro-releases/raw/branch/main/releases/AlvaroInstaller-1.0.0-arm64.dmg",
+          "url": "https://thedoomsdayproject.ignorelist.com:3000/ljawadi/alvaro-releases/raw/branch/master/releases/AlvaroInstaller-1.0.0-arm64.dmg",
           "checksum": "sha256:placeholder",
           "size": "52MB"
         },
         "mac_intel": {
-          "url": "https://gitea.thedoomsdayproject.ignorelist.com:3000/ljawadi/alvaro-releases/raw/branch/main/releases/AlvaroInstaller-1.0.0-intel.dmg",
+          "url": "https://thedoomsdayproject.ignorelist.com:3000/ljawadi/alvaro-releases/raw/branch/master/releases/AlvaroInstaller-1.0.0-intel.dmg",
           "checksum": "sha256:placeholder",
           "size": "52MB"
         },
         "python_script": {
-          "url": "https://gitea.thedoomsdayproject.ignorelist.com:3000/ljawadi/alvaro-releases/raw/branch/main/releases/installer-1.0.0.py",
-          "checksum": "sha256:placeholder",
+          "url": "https://thedoomsdayproject.ignorelist.com:3000/ljawadi/alvaro-releases/raw/branch/master/releases/installer-1.0.0.py",
+          "checksum": "sha256:b7fddfe2d99fc0b6c95aa05128d57d71e319a83af6c184b063c59ad4acd5ebf0",
           "size": "12KB"
         }
       },
@@ -43,8 +43,8 @@
   "updateAvailable": false,
   "metadata": {
     "lastUpdated": "2026-10-27T13:30:00Z",
-    "repository": "https://gitea.thedoomsdayproject.ignorelist.com:3000/ljawadi/alvaro-releases",
-    "feedUrl": "https://gitea.thedoomsdayproject.ignorelist.com:3000/ljawadi/alvaro-releases/raw/branch/main/release_feed.json",
+    "repository": "https://thedoomsdayproject.ignorelist.com:3000/ljawadi/alvaro-releases",
+    "feedUrl": "https://thedoomsdayproject.ignorelist.com:3000/ljawadi/alvaro-releases/raw/branch/master/release_feed.json",
     "supportedPlatforms": ["Windows", "macOS", "Linux"],
     "checksumAlgorithm": "sha256"
   }

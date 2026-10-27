@@ -6,7 +6,7 @@ param(
     [string]$GiteaToken = $env:GITEA_TOKEN
 )
 
-$GiteaUrl = "https://gitea.thedoomsdayproject.ignorelist.com:3000"
+$GiteaUrl = "https://thedoomsdayproject.ignorelist.com:3000"
 $Username = "ljawadi"
 $RepoName = "alvaro-releases"
 

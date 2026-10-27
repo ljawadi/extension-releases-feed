@@ -20,7 +20,7 @@ except Exception:  # packaging ist optional (z.B. im gebündelten .exe)
     _HAVE_PACKAGING = False
 
 # Update-Feed URL (von Gitea)
-FEED_URL = "https://gitea.thedoomsdayproject.ignorelist.com:3000/ljawadi/alvaro-releases/raw/branch/main/release_feed.json"
+FEED_URL = "https://thedoomsdayproject.ignorelist.com:3000/ljawadi/alvaro-releases/raw/branch/master/release_feed.json"
 
 # Fallback-Version, falls version.txt fehlt
 CURRENT_VERSION = "1.0.0"

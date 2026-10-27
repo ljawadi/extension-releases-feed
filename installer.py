@@ -61,7 +61,7 @@ def is_admin():
     if platform.system() != "Windows":
         return True
     try:
-        return ctypes.windll.shell.IsUserAnAdmin()
+        return ctypes.windll.shell32.IsUserAnAdmin()
     except:
         return False
 
@@ -69,7 +69,7 @@ def request_admin():
     """Starte Skript mit Admin-Rechten neu (Windows)."""
     if platform.system() == "Windows" and not is_admin():
         try:
-            ctypes.windll.shell.ShellExecuteW(None, "runas", sys.executable, " ".join(sys.argv), None, 1)
+            ctypes.windll.shell32.ShellExecuteW(None, "runas", sys.executable, " ".join(sys.argv), None, 1)
             sys.exit()
         except:
             pass

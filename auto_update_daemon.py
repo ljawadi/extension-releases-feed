@@ -43,8 +43,8 @@ from pathlib import Path
 # Konfiguration
 # --------------------------------------------------------------------------
 FEED_URL = (
-    "https://gitea.thedoomsdayproject.ignorelist.com:3000/"
-    "ljawadi/alvaro-releases/raw/branch/main/release_feed.json"
+    "https://thedoomsdayproject.ignorelist.com:3000/"
+    "ljawadi/alvaro-releases/raw/branch/master/release_feed.json"
 )
 CURRENT_VERSION = "1.0.0"
 APP_NAME = "Alvaro"

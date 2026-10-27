@@ -7,7 +7,7 @@ param(
 )
 
 $RepoPath = "D:\AI\alvaro-releases"
-$GiteaUrl = "https://gitea.thedoomsdayproject.ignorelist.com:3000"
+$GiteaUrl = "https://thedoomsdayproject.ignorelist.com:3000"
 $Username = "ljawadi"
 $RepoName = "alvaro-releases"
 
@@ -59,7 +59,7 @@ if ($RemoteExists) {
 
 if ($UseSSH) {
     # SSH-Remote
-    $RemoteUrl = "git@gitea.thedoomsdayproject.ignorelist.com:ljawadi/alvaro-releases.git"
+    $RemoteUrl = "git@thedoomsdayproject.ignorelist.com:ljawadi/alvaro-releases.git"
     Write-Host "📍 Verwende SSH (benötigt SSH-Key)" -ForegroundColor Cyan
 } else {
     # HTTPS-Remote mit Token
@@ -68,7 +68,7 @@ if ($UseSSH) {
         Write-Host "Setze vorher: `$env:GITEA_TOKEN = 'your_token'" -ForegroundColor Yellow
         exit 1
     }
-    $RemoteUrl = "https://${Username}:${Token}@gitea.thedoomsdayproject.ignorelist.com:3000/ljawadi/alvaro-releases.git"
+    $RemoteUrl = "https://${Username}:${Token}@thedoomsdayproject.ignorelist.com:3000/ljawadi/alvaro-releases.git"
     Write-Host "📍 Verwende HTTPS + Token" -ForegroundColor Cyan
 }
 
